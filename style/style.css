@@ -1,0 +1,23 @@
+.page {
+    height: 100%;
+    width: 100%;
+}
+
+.body {
+    background-color: darkslategray;
+    height: 95%;
+    width: 95%;
+}
+
+#cvGamePlay {
+    border: 1px;
+    border-color: ivory;
+    background-color: darkslategray;
+    height: 100%;
+    width: 100%;
+}
+
+.divScreen {
+    height: 100%;
+    width: 100%;
+}

@@ -1,0 +1,18 @@
+{
+    "version": "0.2. ",
+    "configurations": [
+      {
+        "name": "Depurar processo principal",
+        "type": "node",
+        "request": "launch",
+        "cwd": "${workspaceFolder}",
+        "runtimeExecutable": "${workspaceFolder}/node_modules/. in/electron",
+        "windows": {
+          "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron. md"
+        },
+        "args" : [". ],
+        "outputCapture": "std"
+      }
+    ]
+  }
+  
