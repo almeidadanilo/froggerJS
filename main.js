@@ -1,11 +1,12 @@
 const { app, BrowserWindow, Menu } = require("electron");
+const DEFINE_DEV = 1;
 
 // Application Menu
 const templateMenu = [
         {
             label: app.name,
             submenu: [
-                { label: 'Novo Jogo', role: 'newgame' },
+                { label: 'Novo Jogo', click: () => { mainWindow.webContents.send('new-game','abc') } },
                 { type:  'separator' },
                 { label: 'Sair', role: 'quit' }
             ]
@@ -18,17 +19,20 @@ const templateMenu = [
                 { label: 'Sobre ...', role: 'about' }
             ]
         },
-        {
-            label: 'Ferramentas',
-            submenu: [
-                { role: 'reload' },
-                { role: 'forceReload' },
-                { role: 'toggleDevTools' },
-                { type: 'separator' },
-                { role: 'resetZoom' },
-                { role: 'togglefullscreen' }
-            ]
-        }                  
+        ...(DEFINE_DEV ? [ 
+                {
+                    label: 'Ferramentas',
+                    submenu: [
+                        { role: 'reload' },
+                        { role: 'forceReload' },
+                        { role: 'toggleDevTools' },
+                        { type: 'separator' },
+                        { role: 'resetZoom' },
+                        { role: 'togglefullscreen' }
+                    ]
+                }] 
+            : []
+        )      
 ]
 
 
@@ -39,12 +43,15 @@ async function createWindow(){
     mainWindow = new BrowserWindow ({
         width: 800,
         height: 600,
+        resizable: false,
         webPreferences: {
             nodeIntegration: true,
             contextIsolation: false,
             enableRemoteModule: true,
           },       
     });
+
+    if (DEFINE_DEV) mainWindow.webContents.openDevTools({mode: "detach"});
 
     await mainWindow.loadFile("src/index.html");
 
@@ -57,3 +64,4 @@ app.whenReady().then(createWindow);
 // Builds the menu
 const menu = Menu.buildFromTemplate(templateMenu);
 Menu.setApplicationMenu(menu);
+
